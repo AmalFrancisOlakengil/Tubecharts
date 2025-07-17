@@ -17,7 +17,7 @@ export default function AnalyzePage() {
   useEffect(() => {
     if (!videoId) return;
     setLoading(true);
-    fetch(`http://localhost:8000/analyze?video_id=${videoId}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/analyze?video_id=${videoId}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.error) setError(result.error);

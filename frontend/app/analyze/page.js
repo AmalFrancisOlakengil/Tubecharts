@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 import Link from 'next/link';
@@ -7,7 +7,7 @@ import { ArrowLeft, Brain, CheckCircle, PieChart as PieChartIcon, BarChart3, Loa
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#14B8A6', '#F97316'];
 
-function AnalyzeContent() {
+export default function AnalyzePage() {
   const searchParams = useSearchParams();
   const videoId = searchParams.get('video_id');
   const [data, setData] = useState(null);
@@ -17,7 +17,7 @@ function AnalyzeContent() {
   useEffect(() => {
     if (!videoId) return;
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/analyze?video_id=${videoId}`)
+    fetch(`http://localhost:8000/analyze?video_id=${videoId}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.error) setError(result.error);
@@ -243,21 +243,5 @@ function AnalyzeContent() {
         )}
       </main>
     </div>
-  );
-}
-
-export default function AnalyzePage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Loading Analysis</h3>
-          <p className="text-gray-500">Preparing your video analysis...</p>
-        </div>
-      </div>
-    }>
-      <AnalyzeContent />
-    </Suspense>
   );
 }

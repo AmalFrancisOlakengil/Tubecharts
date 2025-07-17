@@ -1,14 +1,13 @@
 'use client';
-export const dynamic = "force-dynamic";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 import Link from 'next/link';
-import { ArrowLeft, Brain, CheckCircle, PieChart as PieIcon, BarChart3, Loader2, AlertCircle, Play, FileText, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Brain, CheckCircle, PieChart, BarChart3, Loader2, AlertCircle, Play, FileText, TrendingUp } from 'lucide-react';
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#14B8A6', '#F97316'];
 
-export default function AnalyzePage() {
+function AnalyzeContent() {
   const searchParams = useSearchParams();
   const videoId = searchParams.get('video_id');
   const [data, setData] = useState(null);
@@ -141,7 +140,7 @@ export default function AnalyzePage() {
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                 <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white p-6">
                   <div className="flex items-center gap-3">
-                    <PieIcon className="w-6 h-6" />
+                    <PieChart className="w-6 h-6" />
                     <h2 className="text-xl font-bold">Topic Distribution</h2>
                   </div>
                 </div>
@@ -244,5 +243,21 @@ export default function AnalyzePage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function AnalyzePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">Loading Analysis</h3>
+          <p className="text-gray-500">Preparing your video analysis...</p>
+        </div>
+      </div>
+    }>
+      <AnalyzeContent />
+    </Suspense>
   );
 }

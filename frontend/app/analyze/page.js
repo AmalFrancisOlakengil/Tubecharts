@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = "force-dynamic";
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';

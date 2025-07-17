@@ -3,7 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 import Link from 'next/link';
-import { ArrowLeft, Brain, CheckCircle, PieChart, BarChart3, Loader2, AlertCircle, Play, FileText, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Brain, CheckCircle, PieChart as PieChartIcon, BarChart3, Loader2, AlertCircle, Play, FileText, TrendingUp } from 'lucide-react';
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#14B8A6', '#F97316'];
 
@@ -140,7 +140,7 @@ function AnalyzeContent() {
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                 <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white p-6">
                   <div className="flex items-center gap-3">
-                    <PieChart className="w-6 h-6" />
+                    <PieChartIcon className="w-6 h-6" />
                     <h2 className="text-xl font-bold">Topic Distribution</h2>
                   </div>
                 </div>
